@@ -15,8 +15,10 @@ class PrometheusFacade(
     private val prometheusPassword: String
 ) {
 
-    fun hasAccess(username: String, password: String): Boolean =
-        username == prometheusUser && password == prometheusPassword
+    fun hasAccess(username: String, password: String): Boolean = {
+       logger.info("user ${username}=${prometheusUser}, ${password}=${prometheusPassword}")
+       return username == prometheusUser && password == prometheusPassword
+    }
 
     fun getMetrics(acceptedType: String?, names: Set<String>): Result<PrometheusMetricsResponse, ErrorResponse> =
         Result.supplyThrowing {
